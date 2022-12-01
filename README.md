@@ -7,11 +7,14 @@ Being based on autohotkey means it only works on MS Windows.
 
 # If you simply want to run it and not install anything:
 
-Run MacCrafter.exe and read the help from the help button on the right toolbar.
+You can download the zip, unzip it and run MacCrafter.exe. 
+Read the help from the help button on the right toolbar.
 
 ------------------------------------------------------
 
 # If you want to tweak the script:
+
+Clone this repo.
 
 Install the latest version of autohotkey, then edit/use midjourney.ahk.
 
