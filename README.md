@@ -24,6 +24,7 @@ You can add new choices in the MJdata.txt file, then render using that choice to
 I pay for MidJourney and use this with the MidJourney Bot. This is the default target window. If you want to use it elsewhere, read the help secton on how to change the target.
 
 If you make changes and want to contribute, please do so on the Github repo. 
+https://github.com/tes735/MacCrafter
 
 ------------------------------------------------------
 
