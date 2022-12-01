@@ -1,6 +1,8 @@
 # MacCrafter V1.0
 Frontend GUI for managing MidJourney Prompts. It uses an autohotkey gui to create a prompt from text and selections, then targets Discord to type in an /imagine prompt. The default target is the MidJourney chat bot. There is more info in the help section on how to retarget this to channels in the MidJourney server if you're using it for free, or would rather use one of the channels. 
 
+I wrote this for myself because I didn’t want to have to remember the names of all those artists or various properties to play around with. This allows you to type in your text, make some selections to build that up, and see what MidJourney does with it. Then, when it’s not quite right, you can go back to the UI, make a different selection for a style, artist, or whatever, and hit /imagine again without having to copy/paste/tweak over and over in Discord.
+
 Being based on autohotkey means it only works on MS Windows.
 
 ![screenshot](/screenshot-ui.png)
