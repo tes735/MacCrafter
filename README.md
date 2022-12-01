@@ -1,7 +1,7 @@
 # MacCrafter
 Frontend GUI for managing MidJourney Prompts 
 
-
+![screenshot](/screenshot.png)
 
 # If you just want to run it and not install anything:
 
