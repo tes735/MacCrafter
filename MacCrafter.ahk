@@ -40,7 +40,7 @@ Heart := % Chr(0x2764)
 
 ;----------------------------------------WINDOW SETUP ------------------------------------
 appHeight := 1000    ;A_ScreenHeight-80
-Gui, Show , w1450 h%appHeight%, MJ Prompt Mac-Crafter with a side order of fries V1.0
+Gui, Show , w1450 h%appHeight%, MJ Promp MacCrafter with a side order of fries V1.0 by 735
 Gui, Font, s12, Verdana
 
 
