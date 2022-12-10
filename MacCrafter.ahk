@@ -12,7 +12,6 @@ aspect = 1:1||3:2|16:9|9:16|21:9|4:3|3:4|3:1|6:4|4:6
 
 versions = 2|3|4|| 
 
-
 ;----------------------------- CODE: ---------------------------------------
 
 leftMargin = x40
@@ -140,10 +139,11 @@ Gui, Add, DDL, %btnWidth% vVersionChoice, %versions%
 
 
 ;---------------------------------------- Misc ------------------------------------
-Gui, Add, Text, w190 h18, Custom:
+Gui, Add, Text, w190 h18, Custom Flags:
 Gui, Add, Edit, %btnWidth% vCustomChoice Left, 
 
 ;---------------------------------------- TOOLS ------------------------------------
+
 
 ;Gui, Add, Text, %btnWidth% h20,
 Gui, Add, Button, %btnWidth% h32 vSettingsBtn gOpenSettings , MJ Settings
@@ -152,13 +152,15 @@ Gui, Add, Button, %btnWidth% h32 vSettingsBtn gOpenSettings , MJ Settings
 Gui, Add, Button, %btnWidth% h32 vHelpBtn gOpenHelp , Help
 
 Gui, Add, Text, w250, ______________
-Gui, Add, Text, %btnWidth% h14,
+;Gui, Add, Text, %btnWidth% h14,
 Gui, Add, Button,%btnWidth% h32 vGetUrlImg gShowUrlImage, <= Get Img
 
 Gui, Add, Button,%btnWidth% h32 vClrUrlImg gClearUrlImage, Clear Img
 
 
-
+Gui, Add, Text, w250, ______________
+;Gui, Add, Text, %btnWidth% h14,
+Gui, Add, CheckBox, vVideoOut, Video Out
 
 
 Gui, Add, Button, x360 y109 w60 h20 vClear_Effects gClearList , Clear
@@ -380,7 +382,11 @@ ImagineIt:
 	}
 	if(CustomChoice and CustomChoice != "") {
 	  MainPrompt = %MainPrompt% %CustomChoice%     
-	}				
+	}
+	if(VideoOut) {
+	  MainPrompt = %MainPrompt% --video   
+	  ;gotta use regular upscale > remaster to get full image video 
+	}	
 
 	target := "@Midjourney Bot - Discord"
 	if(TargetChoice and TargetChoice != "") {
@@ -397,47 +403,6 @@ ImagineIt:
 	
 return
 
-UpdatePrompt: 
-	Gui, Submit, nohide
-	MainPrompt = %Prompt%`
-
-
-	Renderings := GetMultiSelect("Renderings")
-	Effects := GetMultiSelect("Effects")
-	Styles := GetMultiSelect("Styles") 
-	Artists := GetMultiSelect("Artists")
-	Photographers := GetMultiSelect("Photographers")  
-
-   
-	if(Effects) {
-	  MainPrompt = %MainPrompt%, %Effects%
-	}
-	if(Styles) {
-	  MainPrompt = %MainPrompt%, %Styles%
-	}
-	if(Renderings) {
-       MainPrompt = %MainPrompt%, %Renderings%  
-	} 
-	if(Artists) {
-	  MainPrompt = %MainPrompt% by %Artists%
-	}
-	if(Photographers) {
-	  MainPrompt = %MainPrompt% by %Photographers%
-	}
-
-	if(AspectChoice) {
-	  MainPrompt = %MainPrompt% --ar %AspectChoice%     
-	}
-
-	; actually, why not just append to the typed in box instead?
-	; then the Imagine would only use the already completed variable.
-	; the problem here is that if you go another round, it will just
-	; tak everything on so you double shit up. Need to store the 
-	; original first before doing it. Probably in a global.
-	; For now, Just won't use this.
-	GuiControl,, Prompt, % MainPrompt
-
-return
 
 
 GetMultiSelect(WhichList)
@@ -465,10 +430,6 @@ OpenSettings:
 	WinWaitActive, @Midjourney Bot - Discord
 	Send, /settings {Enter}
 return
-
-
-
-
 
 
 
