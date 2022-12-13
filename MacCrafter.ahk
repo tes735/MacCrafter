@@ -144,11 +144,10 @@ Gui, Add, Edit, %btnWidth% vCustomChoice Left,
 
 ;---------------------------------------- TOOLS ------------------------------------
 
-
-;Gui, Add, Text, %btnWidth% h20,
 Gui, Add, Button, %btnWidth% h32 vSettingsBtn gOpenSettings , MJ Settings
 
-;Gui, Add, Text, %btnWidth% h10,
+Gui, Add, Button, %btnWidth% h32 vShowBtn gShowJob , /Show
+
 Gui, Add, Button, %btnWidth% h32 vHelpBtn gOpenHelp , Help
 
 Gui, Add, Text, w250, ______________
@@ -292,7 +291,7 @@ SetFav(lv)
 
 OpenHelp()
 {
-	MsgBox, Type your main idea in the top prompt. i. e. A giant walrus on stilts chasing little children.`n`nMake selections from the various fields.`n`nHold ctrl-click to make multiple selections in a list (only for lists, not dropdowns).`n`nIn Lists, double click to add/remove entries from favorites (Indicated with the X).`n`nWith each double click for favoriting, it saves to the MJData.txt file. To have all your favorites at the top next time you open, click the heart a couple times to get them at the top, then deselect/reselect one.`n`nHave Discord open and ready to receive as it types in the message box.`n`nRight click > Show Image to see an example, if one exists. Right click was chosen so you could check things even with several things multiselected without losing your selections (assuming the one you want to see is already selected, otherwise, make sure to hold ctrl). `n`nThis defaults to use the Midjourey chat bot you can use when you pay for it. If you want to use it in another place, like the #daily-theme on the Midjourney server, hover over discord in the taskbar and type in what you see in the Target Win box. This overrides the default and will work with any window you can target using this method. Note that when you see something like #hashtag | Midjourney - Discord, that the pipe has a space on each side. If you want to change the default, you can do so in the script by changing anywhere it says @Midjourney Bot - Discord to whatever window you will be using from now on as a default.`n`nSometimes it will type in Discord, but the /imagine prompt doesn't pick it up. It usually happens after it hasn't been used in a while. Just hit the /imagine button and send it again and ignore the first one. `n`nData for the various lists are in the MJData.txt file (not dropdowns). Want to add/remove items? Do it there, but be careful to keep the format as you see it with NameOfFormElement,Name of thing,X, or no X, still needs the extra comma.`n`nCan put in an image prompt using a url.`n`nTry mixing it up, like more than one artist at a time, for example.`n`nCheck http://tesanders.com for contact.`n`nNo waranty or copyrights -- do what you will, and let the rest burn in your wake.
+	MsgBox, Type your main idea in the top prompt. i. e. A giant walrus on stilts chasing little children.`n`nMake selections from the various fields.`n`nHold ctrl-click to make multiple selections in a list (only for lists, not dropdowns).`n`nIn Lists, double click to add/remove entries from favorites (Indicated with the X).`n`nWith each double click for favoriting, it saves to the MJData.txt file. To have all your favorites at the top next time you open, click the heart a couple times to get them at the top, then deselect/reselect one.`n`nHave Discord open and ready to receive as it types in the message box.`n`nRight click > Show Image to see an example, if one exists. Right click was chosen so you could check things even with several things multiselected without losing your selections (assuming the one you want to see is already selected, otherwise, make sure to hold ctrl). `n`nIf you have an old job you want to pull back up, get the job id (usually part of the image name), paste it into the prompt box, and hit /show`n`nThis defaults to use the Midjourey chat bot you can use when you pay for it. If you want to use it in another place, like the #daily-theme on the Midjourney server, hover over discord in the taskbar and type in what you see in the Target Win box. This overrides the default and will work with any window you can target using this method. Note that when you see something like #hashtag | Midjourney - Discord, that the pipe has a space on each side. If you want to change the default, you can do so in the script by changing anywhere it says @Midjourney Bot - Discord to whatever window you will be using from now on as a default.`n`nSometimes it will type in Discord, but the /imagine prompt doesn't pick it up. It usually happens after it hasn't been used in a while. Just hit the /imagine button and send it again and ignore the first one. `n`nData for the various lists are in the MJData.txt file (not dropdowns). Want to add/remove items? Do it there, but be careful to keep the format as you see it with NameOfFormElement,Name of thing,X, or no X, still needs the extra comma.`n`nCan put in an image prompt using a url.`n`nTry mixing it up, like more than one artist at a time, for example.`n`nCheck http://tesanders.com for contact.`n`nNo waranty or copyrights -- do what you will, and let the rest burn in your wake.
 }
 
 
@@ -344,12 +343,28 @@ OpenData()
 
 
 
+ShowJob:
+	Gui, Submit, nohide
 
+	target := "@Midjourney Bot - Discord"
+	if(TargetChoice and TargetChoice != "") {
+		target = %TargetChoice%
+	}	
+
+	WinActivate, %target%
+	WinWaitActive, %target%
+	Send, /show {Space}
+
+	SendInput, %Prompt% 
+	sleep, 500
+	SendInput, {Enter}
+
+return
 
 ;------------------------ /imagine
 ImagineIt: 
 	Gui, Submit, nohide
-	MainPrompt = %ImgPrompt% %Prompt%`
+	MainPrompt = %ImgPrompt% %Prompt%
 
 	Renderings := GetMultiSelect("Renderings")
 	Effects := GetMultiSelect("Effects")
